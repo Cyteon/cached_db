@@ -5,7 +5,6 @@ edition = "2021"
 authors = [ "Cyteon" ]
 license = "MIT"
 license-file = "LICENSE"
-repository = { type = "git", url = "https://github.com/cyteon/cached_db" }
 keywords =  [ "database", "cache" ]
 exclude = [ "/db" ]
 
