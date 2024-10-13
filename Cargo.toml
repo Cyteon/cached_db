@@ -7,6 +7,7 @@ license = "MIT"
 license-file = "LICENSE"
 keywords =  [ "database", "cache" ]
 exclude = [ "/db" ]
+description = "A NoSQL database with a built in cache layer."
 
 [dependencies]
 tokio = { version = "1", features = ["full"] }
