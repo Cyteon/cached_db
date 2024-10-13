@@ -1,0 +1,15 @@
+[package]
+name = "cached_db"
+version = "0.1.0"
+edition = "2021"
+authors = [ "Cyteon" ]
+license = "MIT"
+license-file = "LICENSE"
+repository = { type = "git", url = "https://github.com/cyteon/cached_db" }
+keywords =  [ "database", "cache" ]
+exclude = [ "/db" ]
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+bson = "2.13.0"
+serde = { version = "1.0", features = ["derive"] }
