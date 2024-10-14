@@ -41,8 +41,6 @@ async fn get_1000_no_cache() {
     for i in 0..1000 {
         let result = db.get_one_no_cache("test".to_string(), doc! {"int": i});
 
-        println!("{:?}", result);
-
         match result {
             Ok(doc) => {
                 assert_eq!(doc.unwrap().get("int").unwrap().as_i32().unwrap(), i);
@@ -62,8 +60,6 @@ async fn get_1000_cached() {
 
     for _ in 0..1000 {
         let result = db.get_one("test".to_string(), doc! {"bool": true}); // Same filter = cache hit
-
-        println!("{:?}", result);
 
         match result {
             Ok(doc) => {

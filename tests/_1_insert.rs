@@ -51,3 +51,30 @@ async fn insert_1000() {
 
     println!("insert_1000: {:?}", time_start.elapsed());
 }
+
+#[tokio::test]
+async fn insert_many_1000() {
+    let db = Database::new("db".to_string(), Duration::from_secs(60));
+
+    let time_start = std::time::Instant::now();
+
+    let docs = (0..1000)
+        .map(|i| {
+            bson!({
+                "string": format!("Hello, World! {}", i),
+                "int": i,
+                "float": 3.14,
+                "bool": true,
+            })
+        })
+        .collect::<Vec<Bson>>();
+
+    let result = db.insert_many("test".to_string(), docs);
+
+    match result {
+        Ok(_) => assert!(true),
+        Err(_) => assert!(false),
+    }
+
+    println!("insert_many_1000: {:?}", time_start.elapsed());
+}

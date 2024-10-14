@@ -1,6 +1,7 @@
 pub mod internal;
 pub mod util;
 
+use bson::Document;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
@@ -56,6 +57,14 @@ impl Database {
         util::insert::insert_one(&self.path, col, obj)
     }
 
+    pub fn insert_many(
+        &self,
+        col: String,
+        objs: Vec<bson::Bson>,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        util::insert::insert_many(&self.path, col, objs)
+    }
+
     pub fn get_one(
         &mut self,
         col: String,
@@ -70,5 +79,14 @@ impl Database {
         filter: bson::Document,
     ) -> Result<Option<bson::Document>, Box<dyn std::error::Error>> {
         util::get::get_one_no_cache(self, col, filter)
+    }
+
+    pub fn update_one(
+        &self,
+        col: String,
+        filter: bson::Document,
+        update: bson::Document,
+    ) -> Result<Option<Document>, Box<dyn std::error::Error>> {
+        util::update::update_one(&self.path, col, filter, update)
     }
 }
