@@ -73,6 +73,14 @@ impl Database {
         util::get::get_one(self, col, filter)
     }
 
+    pub fn get_many(
+        &mut self,
+        col: String,
+        filter: bson::Document,
+    ) -> Result<Vec<bson::Document>, Box<dyn std::error::Error + Send + Sync>> {
+        util::get::get_many(self, col, filter)
+    }
+
     pub fn get_one_no_cache(
         &mut self,
         col: String,

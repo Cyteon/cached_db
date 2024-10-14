@@ -71,3 +71,21 @@ async fn get_1000_cached() {
 
     println!("get_1000_cache: {:?}", time_start.elapsed());
 }
+
+#[tokio::test]
+async fn get_many_1000() {
+    let mut db = Database::new("db".to_string(), Duration::from_secs(60));
+
+    let time_start = std::time::Instant::now();
+
+    let result = db.get_many("test".to_string(), doc! {"bool": true});
+
+    match result {
+        Ok(docs) => {
+            assert_eq!(docs.len(), 2001);
+        }
+        Err(_) => assert!(false),
+    }
+
+    println!("get_many_1000: {:?}", time_start.elapsed());
+}
