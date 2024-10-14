@@ -3,7 +3,10 @@ use std::fs::File;
 use std::io::Read;
 use std::path::Path;
 
-pub fn get(path: &String, col: String) -> Result<Document, Box<dyn std::error::Error>> {
+pub fn get(
+    path: &String,
+    col: String,
+) -> Result<Document, Box<dyn std::error::Error + Send + Sync>> {
     let mut file = File::open(format!("{}/{}.bson", path, col))?;
 
     let mut buffer = Vec::new();

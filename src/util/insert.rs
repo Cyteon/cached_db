@@ -6,7 +6,11 @@ use crate::internal;
 
 use super::{cache::remove_cache, collection};
 
-pub fn insert_one(path: &String, col: String, obj: Bson) -> Result<(), Box<dyn std::error::Error>> {
+pub fn insert_one(
+    path: &String,
+    col: String,
+    obj: Bson,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     internal::ensure_folder(path);
 
     let data = collection::get(path, col.clone());
@@ -37,7 +41,7 @@ pub fn insert_many(
     path: &String,
     col: String,
     objs: Vec<Bson>,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     internal::ensure_folder(path);
 
     let data = collection::get(path, col.clone());

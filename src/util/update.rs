@@ -11,7 +11,7 @@ pub fn update_one(
     col: String,
     filter: Document,
     update: Document,
-) -> Result<Option<Document>, Box<dyn std::error::Error>> {
+) -> Result<Option<Document>, Box<dyn std::error::Error + Send + Sync>> {
     internal::ensure_folder(path);
 
     let data = collection::get(path, col.clone());

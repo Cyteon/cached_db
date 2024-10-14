@@ -41,7 +41,7 @@ impl Database {
     pub fn get_collection(
         &self,
         col: String,
-    ) -> Result<bson::Document, Box<dyn std::error::Error>> {
+    ) -> Result<bson::Document, Box<dyn std::error::Error + Send + Sync>> {
         util::collection::get(&self.path, col)
     }
 
@@ -53,7 +53,7 @@ impl Database {
         &self,
         col: String,
         obj: bson::Bson,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         util::insert::insert_one(&self.path, col, obj)
     }
 
@@ -61,7 +61,7 @@ impl Database {
         &self,
         col: String,
         objs: Vec<bson::Bson>,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         util::insert::insert_many(&self.path, col, objs)
     }
 
@@ -69,7 +69,7 @@ impl Database {
         &mut self,
         col: String,
         filter: bson::Document,
-    ) -> Result<Option<bson::Document>, Box<dyn std::error::Error>> {
+    ) -> Result<Option<bson::Document>, Box<dyn std::error::Error + Send + Sync>> {
         util::get::get_one(self, col, filter)
     }
 
@@ -77,7 +77,7 @@ impl Database {
         &mut self,
         col: String,
         filter: bson::Document,
-    ) -> Result<Option<bson::Document>, Box<dyn std::error::Error>> {
+    ) -> Result<Option<bson::Document>, Box<dyn std::error::Error + Send + Sync>> {
         util::get::get_one_no_cache(self, col, filter)
     }
 
@@ -86,7 +86,7 @@ impl Database {
         col: String,
         filter: bson::Document,
         update: bson::Document,
-    ) -> Result<Option<Document>, Box<dyn std::error::Error>> {
+    ) -> Result<Option<Document>, Box<dyn std::error::Error + Send + Sync>> {
         util::update::update_one(&self.path, col, filter, update)
     }
 }

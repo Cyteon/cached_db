@@ -10,7 +10,7 @@ pub fn get_one_no_cache(
     db: &mut crate::Database,
     col: String,
     filter: Document,
-) -> Result<Option<Document>, Box<dyn std::error::Error>> {
+) -> Result<Option<Document>, Box<dyn std::error::Error + Send + Sync>> {
     internal::ensure_folder(&db.path);
 
     let data = collection::get(&db.path, col.clone());
@@ -40,7 +40,7 @@ pub fn get_one(
     db: &mut crate::Database,
     col: String,
     filter: Document,
-) -> Result<Option<Document>, Box<dyn std::error::Error>> {
+) -> Result<Option<Document>, Box<dyn std::error::Error + Send + Sync>> {
     internal::ensure_folder(&db.path);
 
     if let Some(cache) = &*db.cache.lock().unwrap() {
