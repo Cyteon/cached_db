@@ -6,7 +6,7 @@ use crate::internal;
 
 use super::{cache::set_cache, collection};
 
-pub fn get_one(
+pub fn get_one_no_cache(
     db: &mut crate::Database,
     col: String,
     filter: Document,
@@ -28,7 +28,6 @@ pub fn get_one(
     for d in docs {
         if let Bson::Document(d) = d {
             if document_matches_filter(d, &filter) {
-                set_cache(db, col, filter, d);
                 return Ok(Some(d.clone()));
             }
         }
@@ -37,7 +36,7 @@ pub fn get_one(
     Err("Not found".into())
 }
 
-pub fn get_one_cached(
+pub fn get_one(
     db: &mut crate::Database,
     col: String,
     filter: Document,

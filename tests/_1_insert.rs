@@ -7,7 +7,6 @@ async fn insert_test() {
     let time_start = std::time::Instant::now();
 
     let db = Database::new("db".to_string(), Duration::from_secs(60));
-    db.drop_collection("test".to_string());
 
     let result = db.insert_one(
         "test".to_string(),
@@ -29,10 +28,9 @@ async fn insert_test() {
 
 #[tokio::test]
 async fn insert_1000() {
-    let time_start = std::time::Instant::now();
-
     let db = Database::new("db".to_string(), Duration::from_secs(60));
-    db.drop_collection("test".to_string());
+
+    let time_start = std::time::Instant::now();
 
     for i in 0..1000 {
         let result = db.insert_one(

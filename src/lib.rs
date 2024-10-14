@@ -64,11 +64,11 @@ impl Database {
         util::get::get_one(self, col, filter)
     }
 
-    pub fn get_one_cached(
+    pub fn get_one_no_cache(
         &mut self,
         col: String,
         filter: bson::Document,
     ) -> Result<Option<bson::Document>, Box<dyn std::error::Error>> {
-        util::get::get_one_cached(self, col, filter)
+        util::get::get_one_no_cache(self, col, filter)
     }
 }
